@@ -15,12 +15,11 @@ let server = http.createServer(function(req, res) {
       buffers.push(buffer)
     })
     req.on('end', function(buffer) {
-      buffers.push(buffer)
-      let body = Buffer.concat(buffers)
+      let body = Buffer.concat(buffers);
       console.log('body: ', body)
-      let event = req.headers['x-github-event'] // event = push
+      let event = req.headers['x-github-event']; // event = push
       // github 请求来的时候 要传递请求题body  另外还会传一个签名过来 signature，你需要本地校验签名是否正确
-      let signature = req.headers['x-hub-signature']
+      let signature = req.headers['x-hub-signature'];
       if (signature !== sign(body)) {
         res.end('Not allowed')
       } else {
@@ -28,7 +27,8 @@ let server = http.createServer(function(req, res) {
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ok: true}))
         if (event == 'push') { // 开始部署
-          let payload = JSON.parse(body)
+          let payload = JSON.parse(body);
+          console.log('payload:111', payload)
           console.log('repository', payload.repository.name)
           // let child = spawn('sh', [`./${payload.repository.name}.sh`])
           // let buffers = []

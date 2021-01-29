@@ -5,7 +5,7 @@ echo "先清除老代码"
 git reset --hard origin/master
 git clean -f
 echo "拉取最新代码"
-git pull origin master
+git pull
 echo "开始执行构建后台镜像"
 docker build -t test-vue-back-cicd:1.0 .
 echo "停止旧容器并删除旧容器"
