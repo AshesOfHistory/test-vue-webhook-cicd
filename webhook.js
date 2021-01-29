@@ -15,6 +15,7 @@ let server = http.createServer(function(req, res) {
       buffers.push(buffer)
     })
     req.on('end', function(buffer) {
+      buffers.push(buffer)
       let body = Buffer.concat(buffers)
       console.log('body: ', body)
       let event = req.headers['x-github-event'] // event = push
