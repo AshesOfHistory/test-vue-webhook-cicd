@@ -15,7 +15,7 @@ let server = http.createServer(function(req, res) {
       buffers.push(buffer)
     })
     req.on('end', function(buffer) {
-      let body = buffer.concat(buffers)
+      let body = buffers.concat(buffer)
       console.log('req: ', JSON.stringify(req))
       let event = req.headers['x-github-event'] // event = push
       // github 请求来的时候 要传递请求题body  另外还会传一个签名过来 signature，你需要本地校验签名是否正确
