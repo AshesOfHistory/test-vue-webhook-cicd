@@ -5,5 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "nodemailer": "^6.4.17"
+  },
+  "scripts": {
+    "start": "pm2 start ./webhook.js --name test-webhook --watch",
+    "stop": "pm2 stop test-webhook"
   }
 }
