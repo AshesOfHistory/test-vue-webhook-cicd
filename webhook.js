@@ -6,7 +6,7 @@ function sign(body) {
   return `sha1=${crypto.createHmac('sha1', SECRET).update(body).digest('hex')}`
 }
 let server = http.createServer(function(req, res) {
-  console.log(req.method, req.url)
+  console.log(req.method, req.url, req)
   if (req.method == 'POST' && req.url == '/test-vue-webhook-cicd') {
 
     let buffers = []
@@ -16,7 +16,7 @@ let server = http.createServer(function(req, res) {
     })
     req.on('end', function(buffer) {
       let body = buffers.concat(buffer)
-      console.log('req: ', JSON.stringify(req))
+      console.log('req: ', req)
       let event = req.headers['x-github-event'] // event = push
       // github 请求来的时候 要传递请求题body  另外还会传一个签名过来 signature，你需要本地校验签名是否正确
       let signature = req.headers['x-gihub-signature']
