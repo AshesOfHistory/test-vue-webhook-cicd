@@ -3,7 +3,8 @@ let crypto = require('crypto')
 const { spawn } = require('child_process')
 let SECRET = 'github'
 function sign(body) {
-  return `sha1=${crypto.createHmac('sha1', SECRET).update(body).digest('hex')}`
+  let sha1 = crypto.createHmac('sha1', SECRET).update(body).digest('hex')
+  return `sha1=${sha1}`
 }
 let server = http.createServer(function(req, res) {
   console.log(req.method, req.url)
@@ -30,15 +31,15 @@ let server = http.createServer(function(req, res) {
           let payload = JSON.parse(body);
           console.log('payload:111', payload)
           console.log('repository', payload.repository.name)
-          // let child = spawn('sh', [`./${payload.repository.name}.sh`])
-          // let buffers = []
-          // child.stdout.on('data', function(buffer) {
-          //   buffers.push(buffer)
-          // })
-          // child.stdout.on('end', function(buffer) {
-          //   let log = Buffer.concat(buffers).toString()
-          //   console.log(log)
-          // })
+          let child = spawn('sh', [`./${payload.repository.name}.sh`])
+          let buffers = []
+          child.stdout.on('data', function(buffer) {
+            buffers.push(buffer)
+          })
+          child.stdout.on('end', function(buffer) {
+            let log = Buffer.concat(buffers).toString()
+            console.log(log)
+          })
         }
       }
     })
