@@ -30,7 +30,7 @@ let server = http.createServer(function(req, res) {
         if (event == 'push') { // 开始部署
           let stringBody = body.toString();
           let decodedBody = decodeURIComponent(stringBody)
-          let payload = decodedBody.slice(7)
+          let payload = decodedBody.slice(8)
           console.log('stringbody', stringBody)
           console.log('decodedBody', decodedBody)
           console.log('payload', payload)
