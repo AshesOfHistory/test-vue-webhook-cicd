@@ -28,6 +28,7 @@ let server = http.createServer(function(req, res) {
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ok: true}))
         if (event == 'push') { // 开始部署
+          console.log('parse body:', JSON.parse(body))
           let payload = JSON.parse(body);
           // console.log('payload:111', payload)
           // console.log('repository', payload.repository.name)
