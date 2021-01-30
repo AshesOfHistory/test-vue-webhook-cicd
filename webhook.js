@@ -28,9 +28,14 @@ let server = http.createServer(function(req, res) {
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ok: true}))
         if (event == 'push') { // 开始部署
-          let payload = body.toString;
-          console.log('stringbody', body.toString())
-          console.log('payload:111', payload)
+          let stringBody = body.toString();
+          let decodedBody = decodeURIComponent(stringBody)
+          let payload = decodedBody.slice(7)
+          console.log('stringbody', stringBody)
+          console.log('decodedBody', decodedBody)
+          console.log('payload', payload)
+          let parsePayload = JSON.parse(payload)
+          console.log('parsePayload', parsePayload)
           // console.log('repository', payload.repository.name)
           // let child = spawn('sh', [`./${payload.repository.name}.sh`])
           // let buffers = []
