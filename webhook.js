@@ -28,18 +28,19 @@ let server = http.createServer(function(req, res) {
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ok: true}))
         if (event == 'push') { // 开始部署
-          let payload = JSON.parse(body.toString());
+          let payload = body.toString;
+          console.log('stringbody', body.toString())
           console.log('payload:111', payload)
-          console.log('repository', payload.repository.name)
-          let child = spawn('sh', [`./${payload.repository.name}.sh`])
-          let buffers = []
-          child.stdout.on('data', function(buffer) {
-            buffers.push(buffer)
-          })
-          child.stdout.on('end', function(buffer) {
-            let log = Buffer.concat(buffers).toString()
-            console.log(log)
-          })
+          // console.log('repository', payload.repository.name)
+          // let child = spawn('sh', [`./${payload.repository.name}.sh`])
+          // let buffers = []
+          // child.stdout.on('data', function(buffer) {
+          //   buffers.push(buffer)
+          // })
+          // child.stdout.on('end', function(buffer) {
+          //   let log = Buffer.concat(buffers).toString()
+          //   console.log(log)
+          // })
         }
       }
     })
