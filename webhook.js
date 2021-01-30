@@ -31,21 +31,16 @@ let server = http.createServer(function(req, res) {
           let stringBody = body.toString();
           let decodedBody = decodeURIComponent(stringBody)
           let payload = decodedBody.slice(8)
-          console.log('stringbody', stringBody)
-          console.log('decodedBody', decodedBody)
-          console.log('payload', payload)
           let parsePayload = JSON.parse(payload)
-          console.log('parsePayload', parsePayload)
-          console.log('repository', parsePayload.repository.name)
-          // let child = spawn('sh', [`./${payload.repository.name}.sh`])
-          // let buffers = []
-          // child.stdout.on('data', function(buffer) {
-          //   buffers.push(buffer)
-          // })
-          // child.stdout.on('end', function(buffer) {
-          //   let log = Buffer.concat(buffers).toString()
-          //   console.log(log)
-          // })
+          let child = spawn('sh', [`./${parsePayload.repository.name}.sh`])
+          let buffers = []
+          child.stdout.on('data', function(buffer) {
+            buffers.push(buffer)
+          })
+          child.stdout.on('end', function(buffer) {
+            let log = Buffer.concat(buffers).toString()
+            console.log(log)
+          })
         }
       }
     })
